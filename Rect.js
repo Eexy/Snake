@@ -2,8 +2,6 @@ class Rect{
   constructor(){
     this.x = 0;
     this.y = 0;
-    this.xspeed = 1;
-    this.yspeed = 0;
     this.size = 20;
     this.previous = [];
   }

@@ -8,14 +8,18 @@ class Snake{
     this.previous = [];
     this.tails = [];
     this.direction = 2;
+    this.dead = false;
   }
 
   show(ctx){
-    this.update();
-    ctx.fillStyle = 'black';
-    ctx.fillRect(this.x, this.y, this.size,this.size);
-
-    this.tails.forEach((el) => el.show(ctx));
+    // check if the snake bit it's tail
+      this.update();
+      
+      if(!this.dead){
+        ctx.fillStyle = 'black';
+        ctx.fillRect(this.x, this.y, this.size,this.size);
+        this.tails.forEach((el) => el.show(ctx));
+      }
   }
 
   update (){
@@ -24,6 +28,7 @@ class Snake{
 
     this.checkWallCollision();
 
+    
     // set new position
     this.y +=  this.yspeed * this.size;
     this.x +=  this.xspeed * this.size;
@@ -38,6 +43,18 @@ class Snake{
         el.update(x, y);
       }
     });
+
+    this.checkTailCollision();
+  }
+
+  checkTailCollision(){
+    if(this.tails.length){
+      this.tails.forEach((el) => {
+        if(el.x == this.x && this.y == el.y){
+          this.dead = true;
+        }
+      })
+    }
   }
 
   changeDirection(xspeed, yspeed){

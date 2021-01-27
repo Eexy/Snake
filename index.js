@@ -7,6 +7,7 @@ let fpsInterval = 0;
 let startTime = null;
 let now = null;
 let ellapsed = 0;
+let isLost = false;
 
 const food = {
     x: 0,
