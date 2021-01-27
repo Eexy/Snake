@@ -1,44 +1,12 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 let foodExist = false;
-
-const rect = {
-    x: 0,
-    y: 0,
-    width: 20,
-    height: 20,
-    fill: 'black',
-    speed: 1,
-    direction: 2,
-    eat: (food) => {
-        const distX = Math.abs(rect.x - food.x);
-        const distY =  Math.abs(rect.y - food.y);
-        
-        if(distX < rect.width-5 && distY < rect.height-5){
-            foodExist = false
-            rect.tails.push({
-                x: 0,
-                y: 0,
-                previousX: 0,
-                previousX: 0,
-                height: 20,
-                width: 20,
-                fill: 'black'
-            });
-        }
-
-    },
-    tails: [],
-    renderTails : () => {
-        rect.tails.forEach((el, i) => {
-            el.x = ((i+1)*rect.speed)+(rect.width*(i+1));
-            el.y = rect.y;
-
-            ctx.fillStyle = el.fill;
-            ctx.fillRect(el.x, el.y, rect.width, rect.height);
-        });
-    }
-}
+let frameCount = 0;
+let then = null;
+let fpsInterval = 0;
+let startTime = null;
+let now = null;
+let ellapsed = 0;
 
 const food = {
     x: 0,
@@ -48,39 +16,29 @@ const food = {
     fill: 'red'
 }
 
+function startAnimate(fps){
+    fpsInterval = 1000/fps;
+    then = Date.now();
+    startTime = then;
+    render();
+}
+
+let snake = new Snake();
+
 function clear(){
     ctx.clearRect(0,0,300,150);
 }
 
 function render(){
-    clear();
-    if(rect.direction === 2){
-        rect.x += rect.speed;
-    }else if(rect.direction === 4){
-        rect.x -= rect.speed;
-    }else if(rect.direction === 3){
-        rect.y += rect.speed;
-    }else if(rect.direction === 1){
-        rect.y -= rect.speed;
-    }
-
-
-
-    ctx.fillStyle = rect.fill;
-    ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
-    rect.renderTails();
-    checkCollision()
-
-    if(!foodExist){
-        generateFood();
-    }
-
-    if(foodExist){
-        renderFood();
-        rect.eat(food);
-    }
-
     requestAnimationFrame(render);
+    now = Date.now();
+    ellapsed = now - then;
+
+    if(ellapsed > fpsInterval){
+        then = now - (ellapsed % fpsInterval);
+        clear();
+        snake.show(ctx);    
+    }
 }
 
 function generateFood(){
@@ -106,17 +64,13 @@ function renderFood(){
 
 function move(e){
     if(e.key === 'ArrowDown'){
-        clear();
-        rect.direction = 3;
+        snake.changeDirection(3);
     }else if(e.key === 'ArrowUp'){
-        clear();
-        rect.direction = 1;
+        snake.changeDirection(1);
     }else if(e.key === 'ArrowRight'){
-        clear();
-        rect.direction = 2;
+        snake.changeDirection(2);
     }else if(e.key === 'ArrowLeft'){
-        clear();
-        rect.direction = 4;
+        snake.changeDirection(4);
     }
 }
 
@@ -136,8 +90,6 @@ function showPos(){
     console.log(`x: ${rect.x}, y:${rect.y}`);
 }
 
-requestAnimationFrame(render);
+startAnimate(10);
 
 window.addEventListener('keydown', move);
-
-ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
