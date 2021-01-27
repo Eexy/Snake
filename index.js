@@ -64,32 +64,16 @@ function renderFood(){
 
 function move(e){
     if(e.key === 'ArrowDown'){
-        snake.changeDirection(3);
+        snake.changeDirection(0, 1);
     }else if(e.key === 'ArrowUp'){
-        snake.changeDirection(1);
+        snake.changeDirection(0, -1);
     }else if(e.key === 'ArrowRight'){
-        snake.changeDirection(2);
+        snake.changeDirection(1, 0);
     }else if(e.key === 'ArrowLeft'){
-        snake.changeDirection(4);
+        snake.changeDirection(-1, 0);
     }
 }
 
-function checkCollision(){
-    if(rect.x < 0 - rect.width){
-        rect.x = 300;
-    }else if(rect.x > 300+rect.width){
-        rect.x = 0;
-    }else if(rect.y < 0 - rect.width){
-        rect.y = 150;
-    }else if(rect.y > 150 + rect.width){
-        rect.y = 0;
-    }
-}
-
-function showPos(){
-    console.log(`x: ${rect.x}, y:${rect.y}`);
-}
-
-startAnimate(10);
+startAnimate(5);
 
 window.addEventListener('keydown', move);

@@ -2,46 +2,63 @@ class Snake{
   constructor(){
     this.x = 0;
     this.y = 0;
-    this.speed = 20;
-    this.history = [];
+    this.xspeed = 1;
+    this.yspeed = 0;
+    this.size = 20;
+    this.previous = [];
+    this.tails = [];
     this.direction = 2;
+
+    for(let i = 0; i < 3; i++){
+      const rect = new Rect();
+      this.tails.push(rect);
+    }
   }
 
   show(ctx){
     this.update();
     ctx.fillStyle = 'black';
-    ctx.fillRect(this.x, this.y, 20,20);
+    ctx.fillRect(this.x, this.y, this.size,this.size);
 
-    this.history.forEach((pos) => {
-      ctx.fillStyle = 'red';
-      ctx.fillRect(pos[0], pos[1], 1, 20);
-    });
+    this.tails.forEach((el) => el.show(ctx));
   }
 
   update (){
-
     // save current position
-    const current = [this.x, this.y+20];
-    this.history.push(current);
+    this.previous = [this.x, this.y];
 
-    if(this.history.length > 20){
-      this.history.shift();
-    }
+    this.checkWallCollision();
 
     // set new position
-    if(this.direction === 1){
-      this.y -= this.speed;
-    }else if(this.direction === 2){
-      this.x += this.speed;
-    }else if(this.direction === 3){
-      this.y += this.speed;
-    }else if(this.direction === 4){
-      this.x -= this.speed;
-    }
+    this.y +=  this.yspeed * this.size;
+    this.x +=  this.xspeed * this.size;
+
+    // give the old position to the tails
+    this.tails.forEach((el, i) => {
+      if(i == 0){
+        el.update(this.previous[0], this.previous[1]);
+      }else{
+        const x = this.tails[i-1].previous[0];
+        const y = this.tails[i-1].previous[1];
+        el.update(x, y);
+      }
+    });
   }
 
-  changeDirection(newDirection){
-    this.direction = newDirection;
-    console.log(this.direction)
+  changeDirection(xspeed, yspeed){
+    this.xspeed = xspeed;
+    this.yspeed = yspeed;
+  }
+
+  checkWallCollision(){
+    if(this.x < 0){
+      this.x = 350;
+    }else if(this.x > 350){
+      this.x = 0 - this.size;
+    }else if(this.y < 0){
+      this.y = 150;
+    }else if(this.y > 150){
+      this.y = 0 - this.size;
+    }
   }
 }
