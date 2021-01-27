@@ -8,11 +8,6 @@ class Snake{
     this.previous = [];
     this.tails = [];
     this.direction = 2;
-
-    for(let i = 0; i < 3; i++){
-      const rect = new Rect();
-      this.tails.push(rect);
-    }
   }
 
   show(ctx){
@@ -60,5 +55,15 @@ class Snake{
     }else if(this.y > 150){
       this.y = 0 - this.size;
     }
+  }
+
+  eat(food){
+    if(this.x == food.x && this.y == food.y){
+      const rect = new Rect();
+      this.tails.push(rect);
+      return false;
+    }
+
+    return true;
   }
 }

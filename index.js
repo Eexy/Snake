@@ -11,8 +11,6 @@ let ellapsed = 0;
 const food = {
     x: 0,
     y: 0,
-    width: 20,
-    height: 20,
     fill: 'red'
 }
 
@@ -37,29 +35,39 @@ function render(){
     if(ellapsed > fpsInterval){
         then = now - (ellapsed % fpsInterval);
         clear();
-        snake.show(ctx);    
+        snake.show(ctx);
+        
+        if(!foodExist){
+            generateFood();
+        }
+        
+        if(foodExist){
+            renderFood();
+        }
+
+        foodExist = snake.eat(food)
     }
 }
 
 function generateFood(){
     // We divide the board into column and row
-    const rows = 300/rect.width;
-    const cols = 150/rect.height;
+    const rows = 300/20;
+    const cols = 150/20;
 
     // Select a random pos;
     const row = Math.floor(Math.random() * (rows - 1));
     const col = Math.floor(Math.random() * (cols - 1));
 
     // render food
-    food.x = row * food.width;
-    food.y = col * food.height;
+    food.x = row * 20;
+    food.y = col * 20;
 
     foodExist = true;
 }
 
 function renderFood(){
-    ctx.fillStyle = food.fill;
-    ctx.fillRect(food.x, food.y, food.width, food.height);
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, 20, 20);
 }
 
 function move(e){
