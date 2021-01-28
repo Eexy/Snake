@@ -25,8 +25,8 @@ function draw(){
 
 
 function renderFood(){
-  const rows = width / 20;
-  const cols = height / 20;
+  const rows = floor(width / 20);
+  const cols = floor(height / 20);
 
   food = createVector(floor(random(rows)), floor(random(cols)));
   food.mult(20);  
