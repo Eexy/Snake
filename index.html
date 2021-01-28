@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake</title>
-    <style>
-        canvas{
-            border: 1px solid black;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas></canvas>
+    <div class="wrapper">
+        <div class="startup-screen">
+            <h1 class="game-title">Snake</h1>
+            <h2>Welcome to the Snake Game</h2>
+            <button class="start-btn">Play</button>
+        </div>
+        <canvas></canvas>
+    </div>
+
     <script src="Rect.js"></script>
     <script src="Snake.js"></script>
     <script src="index.js"></script>

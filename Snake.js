@@ -1,7 +1,9 @@
 class Snake{
-  constructor(){
+  constructor(height, width){
     this.x = 0;
     this.y = 0;
+    this.canvasHeight = height;
+    this.canvasWidth = width;
     this.xspeed = 1;
     this.yspeed = 0;
     this.size = 20;
@@ -16,7 +18,7 @@ class Snake{
       this.update();
       
       if(!this.dead){
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = 'blue';
         ctx.fillRect(this.x, this.y, this.size,this.size);
         this.tails.forEach((el) => el.show(ctx));
       }
@@ -24,14 +26,17 @@ class Snake{
 
   update (){
     // save current position
-    this.previous = [this.x, this.y];
+    this.previous = [Math.round(this.x), Math.round(this.y)];
 
     this.checkWallCollision();
 
     
     // set new position
-    this.y +=  this.yspeed * this.size;
-    this.x +=  this.xspeed * this.size;
+    this.y +=  Math.round(this.yspeed * this.size);
+    this.x +=  Math.round(this.xspeed * this.size);
+
+    console.log(this.previous)
+    console.log([this.x, this.y]);
 
     // give the old position to the tails
     this.tails.forEach((el, i) => {
@@ -64,12 +69,12 @@ class Snake{
 
   checkWallCollision(){
     if(this.x < 0){
-      this.x = 350;
-    }else if(this.x > 350){
+      this.x = this.canvasWidth;
+    }else if(this.x > this.canvasWidth){
       this.x = 0 - this.size;
     }else if(this.y < 0){
-      this.y = 150;
-    }else if(this.y > 150){
+      this.y = this.canvasHeight;
+    }else if(this.y > this.canvasHeight){
       this.y = 0 - this.size;
     }
   }

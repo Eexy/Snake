@@ -8,6 +8,10 @@ let startTime = null;
 let now = null;
 let ellapsed = 0;
 let isLost = false;
+const dpi = window.devicePixelRatio;
+let height = 0;
+let width = 0;
+let snake = null;
 
 const food = {
     x: 0,
@@ -22,10 +26,11 @@ function startAnimate(fps){
     render();
 }
 
-let snake = new Snake();
 
 function clear(){
-    ctx.clearRect(0,0,300,150);
+    ctx.clearRect(0,0,width,height);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0,0,width,height);
 }
 
 function render(){
@@ -52,8 +57,8 @@ function render(){
 
 function generateFood(){
     // We divide the board into column and row
-    const rows = 300/20;
-    const cols = 150/20;
+    const rows = width/20;
+    const cols = height/20;
 
     // Select a random pos;
     const row = Math.floor(Math.random() * (rows - 1));
@@ -82,7 +87,36 @@ function move(e){
         snake.changeDirection(-1, 0);
     }
 }
-
-startAnimate(5);
-
 window.addEventListener('keydown', move);
+
+
+// setup canvas
+function setup(){
+    fixBlur();
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0,0,width,height);
+
+    snake = new Snake(height, width);
+}
+
+// fix canvas blurry effect
+function fixBlur(){
+    height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
+    width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
+
+    canvas.setAttribute('height', height * dpi);
+    canvas.setAttribute('width', width * dpi);
+
+    ctx.scale(dpi, dpi)
+}
+
+
+const startBtn = document.querySelector('.start-btn');
+startBtn.addEventListener('click', () => {
+    startupScreen.style.display = 'none';
+    setup();
+    startAnimate(5);
+});
+
+const startupScreen = document.querySelector('.startup-screen');

@@ -7,7 +7,7 @@ class Rect{
   }
 
   show(ctx){
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'blue';
     ctx.fillRect(this.x, this.y, this.size,this.size);
   }
 
