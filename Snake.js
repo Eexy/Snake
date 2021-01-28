@@ -30,13 +30,9 @@ class Snake{
 
     this.checkWallCollision();
 
-    
     // set new position
     this.y +=  Math.round(this.yspeed * this.size);
     this.x +=  Math.round(this.xspeed * this.size);
-
-    console.log(this.previous)
-    console.log([this.x, this.y]);
 
     // give the old position to the tails
     this.tails.forEach((el, i) => {
