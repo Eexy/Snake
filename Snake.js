@@ -1,13 +1,28 @@
 class Snake{
   constructor(){
-    this.x = 0;
-    this.y = 0;
+    this.pos = createVector(0,0);
+    this.speed = createVector(1, 0);
     this.size = 20;
-    this.xspeed = 1;
-    this.yspeed = 0;
   }
 
   render(){
-    rect(this.x, this.y, this.size, this.size);
+    this.update();
+
+    fill(255)
+    rect(this.pos.x, this.pos.y, this.size, this.size);
+  }
+
+  eat(){
+    console.log('miam');
+  }
+
+  update(){
+    const copy = this.speed.copy().mult(this.size) 
+
+    this.pos.add(copy)
+  }
+
+  direction(newSpeed){
+    this.speed.set(newSpeed);
   }
 }
