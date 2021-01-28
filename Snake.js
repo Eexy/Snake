@@ -20,6 +20,7 @@ class Snake{
     const copy = this.speed.copy().mult(this.size) 
 
     this.pos.add(copy)
+    // console.log(this.pos)
   }
 
   direction(newSpeed){
