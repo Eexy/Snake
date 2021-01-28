@@ -20,7 +20,6 @@ function draw(){
     snake.eat();
     renderFood();
   }
-  // const temp = [[snake.pos.x, snake.pos.y], [food.x, food.y]];
 }
 
 

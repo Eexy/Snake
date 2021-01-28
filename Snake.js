@@ -30,14 +30,31 @@ class Snake{
       for(let i = this.length - 1; i > 0; i--){
         this.tails[i] = this.tails[i - 1];
       }
-
       this.tails[0] = this.pos.copy();
     }
 
-
     this.pos.add(copy)
+
+    this.wall();
   }
 
+  // Check collision between a wall
+  wall(){
+    if(this.pos.x < 0){
+      this.pos.x = width;
+    }else if(this.pos.x > width){
+      this.pos.x = 0;
+    }else if(this.pos.y < 0){
+      this.pos.y = height;
+    }else if(this.pos.y > height){
+      this.pos.y = 0;
+    }
+  }
+
+  // Check if the snake bit it's tail
+  collisition(){
+    
+  }
   direction(newSpeed){
     this.speed.set(newSpeed);
   }
