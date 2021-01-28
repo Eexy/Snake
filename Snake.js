@@ -31,8 +31,8 @@ class Snake{
     this.checkWallCollision();
 
     // set new position
-    this.y +=  Math.round(this.yspeed * this.size);
-    this.x +=  Math.round(this.xspeed * this.size);
+    this.y +=  Math.floor(this.yspeed * this.size);
+    this.x +=  Math.floor(this.xspeed * this.size);
 
     // give the old position to the tails
     this.tails.forEach((el, i) => {
@@ -59,19 +59,19 @@ class Snake{
   }
 
   changeDirection(xspeed, yspeed){
-    this.xspeed = xspeed;
-    this.yspeed = yspeed;
+    this.xspeed = Math.floor(xspeed);
+    this.yspeed = Math.floor(yspeed);
   }
 
   checkWallCollision(){
     if(this.x < 0){
-      this.x = this.canvasWidth;
+      this.x = Math.floor(this.canvasWidth);
     }else if(this.x > this.canvasWidth){
-      this.x = 0 - this.size;
+      this.x = Math.floor(0 - this.size);
     }else if(this.y < 0){
-      this.y = this.canvasHeight;
+      this.y = Math.floor(this.canvasHeight);
     }else if(this.y > this.canvasHeight){
-      this.y = 0 - this.size;
+      this.y = Math.floor(0 - this.size);
     }
   }
 
