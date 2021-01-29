@@ -2,6 +2,7 @@ let snake = null;
 let food = {};
 
 const gameoverScreen = document.querySelector('.gameover');
+const score = document.querySelector('.score')
 
 function setup() {
   createCanvas(600, 600);
@@ -25,6 +26,7 @@ function draw() {
     }
   }else{
     gameoverScreen.style.display = 'flex';
+    score.textContent = snake.length;
     noLoop();
   }
 }
