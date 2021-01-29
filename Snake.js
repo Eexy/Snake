@@ -52,9 +52,17 @@ class Snake{
   }
 
   // Check if the snake bit it's tail
-  collisition(){
-    
+  collision(){
+    let isDead = false;
+    this.tails.forEach((tail) => {
+      if(tail.dist(this.pos) < 2){
+        isDead = true;
+      }
+    });
+
+    return isDead;
   }
+  
   direction(newSpeed){
     this.speed.set(newSpeed);
   }
