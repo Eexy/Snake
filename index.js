@@ -1,16 +1,17 @@
 let snake = null;
 let food = {};
 
+const gameoverScreen = document.querySelector('.gameover');
+
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(600, 600);
   frameRate(6);
   snake = new Snake();
   renderFood();
 }
 
 function draw() {
-  background(51);
-
+  background(0);
   // render if snake is not dead
   if (!snake.collision()) {
     snake.render();
@@ -23,7 +24,7 @@ function draw() {
       renderFood();
     }
   }else{
-    createP("loose");
+    gameoverScreen.style.display = 'flex';
     noLoop();
   }
 }
@@ -47,3 +48,10 @@ function keyPressed() {
     snake.direction(createVector(-1, 0));
   }
 }
+
+const reset = document.querySelector('.reset');
+reset.addEventListener('click', () => {
+  gameoverScreen.style.display = 'none';
+  loop();
+  setup();
+});

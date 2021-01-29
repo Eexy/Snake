@@ -10,7 +10,7 @@ class Snake{
   render(){
     this.update();
 
-    fill(255)
+    fill('blue')
     rect(this.pos.x, this.pos.y, this.size, this.size);
 
     this.tails.forEach((tail) => {
