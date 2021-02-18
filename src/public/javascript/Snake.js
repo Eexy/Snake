@@ -37,7 +37,7 @@ class Snake{
 
   }
 
-  // Check if the snake bit it's tail
+  // Check if the snake bit it's tail or it a wall
   collision(){
     let isDead = false;
     this.tails.forEach((tail) => {
