@@ -1,9 +1,7 @@
 let snake = null;
 let food = {};
-let width = 350;
-let height = 450;
 
-const screen = document.querySelector('.screen')
+const screen = document.querySelector(".screen");
 const gameover = document.querySelector(".gameover");
 const score = document.querySelector(".score");
 const arrows = document.querySelectorAll(".arrow");
@@ -11,9 +9,9 @@ const arrows = document.querySelectorAll(".arrow");
 arrows.forEach((arrow) => arrow.addEventListener("click", handleClickArrow));
 
 function setup() {
-  createCanvas(width, height);
-  setWidth();
-  resizeCanvas(width, height);
+  createCanvas(300, 450);
+  console.log(setWidth());
+  resizeCanvas(setWidth(), 450);
 
   // move arrow inside main
   const arrowWrapper = document.querySelector(".arrow-buttons");
@@ -25,42 +23,43 @@ function setup() {
   renderFood();
 }
 
-window.addEventListener('resize', windowResized);
+window.addEventListener("resize", windowResized);
 
-function windowResized(){
-  setWidth();
-
-  resizeCanvas(width, height);
+function windowResized() {
+  resizeCanvas(setWidth(), 450);
 }
 
 function setWidth() {
-    if(windowWidth > 400){
-      width = 370;
-    }
+  let w = 350;
+  if (windowWidth > 400) {
+    w = 370;
+  }
 
-    if(windowWidth > 450){
-      width = 420;
-    }
+  if (windowWidth > 450) {
+    w = 420;
+  }
 
-    if(windowWidth > 500){
-      width = 460;
-    }
+  if (windowWidth > 500) {
+    w = 460;
+  }
 
-    if(windowWidth > 550){
-      width = 520;
-    }
+  if (windowWidth > 550) {
+    w = 520;
+  }
 
-    if(windowWidth > 600){
-      width = 560;
-    }
+  if (windowWidth > 600) {
+    w = 560;
+  }
 
-    if(windowWidth > 650){
-      width = 620;
-    }
+  if (windowWidth > 650) {
+    w = 620;
+  }
 
-    if(windowWidth > 700){
-      width = 670;
-    }
+  if (windowWidth > 700) {
+    w = 670;
+  }
+
+  return w;
 }
 
 function draw() {
