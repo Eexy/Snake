@@ -35,20 +35,6 @@ class Snake{
 
     this.pos.add(copy)
 
-    this.wall();
-  }
-
-  // Check collision between a wall
-  wall(){
-    if(this.pos.x < 0){
-      this.pos.x = width;
-    }else if(this.pos.x > width){
-      this.pos.x = 0;
-    }else if(this.pos.y < 0){
-      this.pos.y = height;
-    }else if(this.pos.y > height){
-      this.pos.y = 0;
-    }
   }
 
   // Check if the snake bit it's tail
@@ -59,6 +45,16 @@ class Snake{
         isDead = true;
       }
     });
+
+    if(this.pos.x < 0){
+      isDead = true;
+    }else if(this.pos.x > width){
+      isDead = true;
+    }else if(this.pos.y < 0){
+      isDead = true;
+    }else if(this.pos.y > height){
+      isDead = true;
+    }
 
     return isDead;
   }
