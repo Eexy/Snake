@@ -1,6 +1,6 @@
 @font-face{
-  font-family: 'Arcade Normal';
-  src: url("../fonts/ARCADE_N.ttf") format("ttf");
+  font-family: "Arcade";
+  src: url("../fonts/ARCADE_N.ttf");
 }
 
 *{
@@ -47,7 +47,7 @@ canvas{
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  font-family:'Arcade Normal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Arcade", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
@@ -58,7 +58,7 @@ canvas{
 
 .reset{
   margin-top: auto;
-  font-family:'Arcade Normal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Arcade', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 1rem;
   background: transparent;
   border: 1px solid white;
