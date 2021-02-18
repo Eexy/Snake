@@ -1,17 +1,66 @@
 let snake = null;
 let food = {};
+let width = 350;
+let height = 450;
 
-const gameoverScreen = document.querySelector('.gameover');
-const score = document.querySelector('.score');
-const arrows = document.querySelectorAll('.arrow');
+const screen = document.querySelector('.screen')
+const gameover = document.querySelector(".gameover");
+const score = document.querySelector(".score");
+const arrows = document.querySelectorAll(".arrow");
 
-arrows.forEach((arrow) => arrow.addEventListener('click', handleClickArrow));
+arrows.forEach((arrow) => arrow.addEventListener("click", handleClickArrow));
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(width, height);
+  setWidth();
+  resizeCanvas(width, height);
+
+  // move arrow inside main
+  const arrowWrapper = document.querySelector(".arrow-buttons");
+  const main = document.querySelector("main");
+
+  main.appendChild(arrowWrapper);
   frameRate(6);
   snake = new Snake();
   renderFood();
+}
+
+window.addEventListener('resize', windowResized);
+
+function windowResized(){
+  setWidth();
+
+  resizeCanvas(width, height);
+}
+
+function setWidth() {
+    if(windowWidth > 400){
+      width = 370;
+    }
+
+    if(windowWidth > 450){
+      width = 420;
+    }
+
+    if(windowWidth > 500){
+      width = 460;
+    }
+
+    if(windowWidth > 550){
+      width = 520;
+    }
+
+    if(windowWidth > 600){
+      width = 560;
+    }
+
+    if(windowWidth > 650){
+      width = 620;
+    }
+
+    if(windowWidth > 700){
+      width = 670;
+    }
 }
 
 function draw() {
@@ -27,8 +76,8 @@ function draw() {
       snake.eat();
       renderFood();
     }
-  }else{
-    gameoverScreen.style.display = 'flex';
+  } else {
+    screen.style.display = "flex";
     score.textContent = snake.length;
     noLoop();
   }
@@ -45,47 +94,46 @@ function renderFood() {
 function keyPressed() {
   if (keyCode === UP_ARROW) {
     snake.direction(createVector(0, -1));
-    selectArrow('arrow-up');
+    selectArrow("arrow-up");
   } else if (keyCode === DOWN_ARROW) {
     snake.direction(createVector(0, 1));
-    selectArrow('arrow-down');
+    selectArrow("arrow-down");
   } else if (keyCode === RIGHT_ARROW) {
     snake.direction(createVector(1, 0));
-    selectArrow('arrow-right');
+    selectArrow("arrow-right");
   } else if (keyCode === LEFT_ARROW) {
     snake.direction(createVector(-1, 0));
-    selectArrow('arrow-left');
+    selectArrow("arrow-left");
   }
-
 }
 
-function handleClickArrow(e){
+function handleClickArrow(e) {
   const arrow = e.target;
-  if(arrow.classList.contains('arrow-up')){
+  if (arrow.classList.contains("arrow-up")) {
     snake.direction(createVector(0, -1));
-  }else if(arrow.classList.contains('arrow-down')){
+  } else if (arrow.classList.contains("arrow-down")) {
     snake.direction(createVector(0, 1));
-  }else if(arrow.classList.contains('arrow-right')){
+  } else if (arrow.classList.contains("arrow-right")) {
     snake.direction(createVector(1, 0));
-  }else if(arrow.classList.contains('arrow-left')){
+  } else if (arrow.classList.contains("arrow-left")) {
     snake.direction(createVector(-1, 0));
   }
 }
 
-function selectArrow(className){
+function selectArrow(className) {
   arrows.forEach((arrow) => {
-    if(arrow.classList.contains(className)){
-      arrow.classList.add('active');
+    if (arrow.classList.contains(className)) {
+      arrow.classList.add("active");
       setTimeout(() => {
-        arrow.classList.remove('active');
+        arrow.classList.remove("active");
       }, 300);
     }
-  })
+  });
 }
 
-const reset = document.querySelector('.reset');
-reset.addEventListener('click', () => {
-  gameoverScreen.style.display = 'none';
+const reset = document.querySelector(".reset");
+reset.addEventListener("click", () => {
+  screen.style.display = "none";
   loop();
   setup();
 });
